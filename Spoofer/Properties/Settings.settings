@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Spoofer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Save" Type="System.String" Scope="User">
+      <Value Profile="(Default)">File Path</Value>
+    </Setting>
+    <Setting Name="Load" Type="System.String" Scope="User">
+      <Value Profile="(Default)">File Path</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
