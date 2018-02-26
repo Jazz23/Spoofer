@@ -152,6 +152,11 @@ namespace Spoofer
             Check(textBox16, out Inventory0);
         }
 
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            Check(textBox12, out PetSkin);
+        }
+
         private void textBox15_TextChanged(object sender, EventArgs e)
         {
             Check(textBox15, out Inventory1);
@@ -240,6 +245,7 @@ namespace Spoofer
                     textBox24.Text = Config[22].Split('=')[1];
                     textBox23.Text = Config[23].Split('=')[1];
                     comboBox2.SelectedItem = Config[24].Split('=')[1];
+                    textBox12.Text = Config[25].Split('=')[1];
                 }
                 else MessageBox.Show("Config doesn't exist!");
             } catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -249,7 +255,7 @@ namespace Spoofer
         {
             try
             {
-                string[] Config = new string[25];
+                string[] Config = new string[26];
                 Config[0] = "HP Bonus=" + textBox2.Text;
                 Config[1] = "Max MP=" + textBox3.Text;
                 Config[2] = "MP Bonus=" + textBox4.Text;
@@ -275,6 +281,7 @@ namespace Spoofer
                 Config[21] = "Friends Pet Lvl. 2=" + textBox25.Text;
                 Config[22] = "Friends Pet Lvl. 3=" + textBox24.Text;
                 Config[24] = "Guild Rank=" + comboBox2.SelectedItem;
+                Config[25] = "Pet Skin=" + textBox12.Text;
                 File.WriteAllLines(@textBox19.Text, Config);
             } catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -351,6 +358,7 @@ namespace Spoofer
             textBox11.Text = chara.Level.ToString();
             textBox10.Text = chara.Exp.ToString();
             textBox23.Text = chara.Class.ToString();
+            textBox12.Text = chara.PetSkin.ToString();
 
             MaximumHP = chara.MaximumHP;
             HealthBonus = chara.HPBonus;

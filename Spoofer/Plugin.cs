@@ -76,12 +76,22 @@ namespace Spoofer
         {
             form = new Form1();
             form.Show();
-            proxy.HookPacket(PacketType.UPDATE, OnUpdate);
+            proxy.HookPacket<UpdatePacket>(OnUpdate);
+            proxy.HookPacket<TextPacket>(OnText);
         }
 
-        private void OnUpdate(Client client, Packet upacket)
+        private void OnText(Client client, TextPacket packet)
         {
-            UpdatePacket packet = (UpdatePacket)upacket;
+            if (packet.Name == Name)
+            {
+                packet.Name = FakeName;
+                packet.NumStars = Stars;
+            }
+        }
+
+        private void OnUpdate(Client client, UpdatePacket packet)
+        {
+            if (FakeName != null && client.PlayerData.Name == FakeName) return;
             foreach (Entity ent in packet.NewObjs)
             {
                 foreach (StatData statt in ent.Status.Data)
@@ -89,6 +99,7 @@ namespace Spoofer
                     if (statt.Id == StatsType.Name && statt.StringValue == Name)
                     {
                         //ent.ObjectType = (ushort)Class;
+                        ent.Status.Data.Single(x => x.Id == StatsType.Skin).IntValue = Skin;
                         ent.ObjectType = (ushort)Class;
                         foreach (StatData stat in ent.Status.Data)
                         {
