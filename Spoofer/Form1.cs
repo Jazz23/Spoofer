@@ -211,7 +211,12 @@ namespace Spoofer
         {
             Check(textBox23, out Class);
         }
-#endregion
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Check(textBox1, out MaximumHP);
+        }
+        #endregion
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -246,6 +251,7 @@ namespace Spoofer
                     textBox23.Text = Config[23].Split('=')[1];
                     comboBox2.SelectedItem = Config[24].Split('=')[1];
                     textBox12.Text = Config[25].Split('=')[1];
+                    textBox1.Text = Config[26].Split('=')[1];
                 }
                 else MessageBox.Show("Config doesn't exist!");
             } catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -255,7 +261,7 @@ namespace Spoofer
         {
             try
             {
-                string[] Config = new string[26];
+                string[] Config = new string[27];
                 Config[0] = "HP Bonus=" + textBox2.Text;
                 Config[1] = "Max MP=" + textBox3.Text;
                 Config[2] = "MP Bonus=" + textBox4.Text;
@@ -282,6 +288,7 @@ namespace Spoofer
                 Config[22] = "Friends Pet Lvl. 3=" + textBox24.Text;
                 Config[24] = "Guild Rank=" + comboBox2.SelectedItem;
                 Config[25] = "Pet Skin=" + textBox12.Text;
+                Config[26] = "MaxHP=" + textBox1.Text;
                 File.WriteAllLines(@textBox19.Text, Config);
             } catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -322,7 +329,8 @@ namespace Spoofer
             }
             textBox6.Text = nut.Split("star-container\">")[1].Split('<')[0];
             textBox21.Text = nut.Split("/guild/").Last().Split('>')[1].Split('<')[0];
-            comboBox2.SelectedItem = nut.Split("Guild Rank")[1].Split("<td>")[1].Split('<')[0];
+            Clipboard.SetText(nut);
+            comboBox2.SelectedItem = nut.Split("Rank")[1].Split("<td>")[1].Split('<')[0];
             textBox5.Text = textBox30.Text.Split('/').Last();
         }
 
@@ -343,6 +351,7 @@ namespace Spoofer
         {
             Character chara = charList[comboBox1.SelectedIndex];
             block = true;
+            textBox1.Text = chara.MaximumHP.ToString();
             textBox2.Text = chara.HPBonus.ToString();
             textBox3.Text = chara.MaximumMP.ToString();
             textBox4.Text = chara.MPBonus.ToString();
